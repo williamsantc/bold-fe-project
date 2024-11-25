@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import styles from '../Transaction.module.scss';
-import { Dashboard } from "@/lib/type/Dashboard";
+import { Transaction } from "@/lib/type/Transaction";
 import TransactionItem from "@/components/Transactions/TransactionItem";
 
 interface TransactionListProps {
-    transactions: Dashboard[];
+    transactions: Transaction[];
 }
 
 const TransactionList: FC<TransactionListProps> = ({ transactions }) => {
@@ -17,13 +17,13 @@ const TransactionList: FC<TransactionListProps> = ({ transactions }) => {
                     <th>Transacción</th>
                     <th>Fecha y hora</th>
                     <th>Método de pago</th>
-                    <th>ID de la transacción</th>
+                    <th>ID transacción Bold</th>
                     <th>Monto</th>
                 </tr>
                 </thead>
                 <tbody>
                 {transactions.map((transaction) => (
-                    <TransactionItem transaction={transaction} />
+                    <TransactionItem transaction={transaction} key={transaction.id} />
                 ))}
                 </tbody>
             </table>

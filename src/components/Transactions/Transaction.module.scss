@@ -10,7 +10,6 @@
   width: 100%;
   padding: 1em;
   border-collapse: collapse;
-  font-family: 'Montserrat', sans-serif;
   font-size: 0.9em;
   color: var(--dark-gray-company);
 
@@ -28,6 +27,17 @@
 
   tbody tr:hover {
     background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.paymentMethodCell {
+  div {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 0.8em;
+    }
   }
 }
 
