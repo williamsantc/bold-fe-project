@@ -1,0 +1,50 @@
+.totalSales {
+  background: var(--light-gray-company);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--light-gray-company);
+    background: var(--gradient-company);
+    padding: 1em;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    .infoIcon {
+      border: 1px solid var(--light-gray-company);
+      border-radius: 50%;
+      padding: 0.1em 0.55em;
+      margin-left: 0.5rem;
+      font-size: 0.8em;
+      cursor: pointer;
+      color: var(--light-gray-company);
+    }
+  }
+
+  .body {
+    padding: 1em;
+
+    .total {
+      font-size: 2rem;
+      font-weight: bold;
+      background: -webkit-linear-gradient(45deg, var(--blue-company), var(--red-company));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 1rem;
+    }
+
+    .date {
+      font-size: 1rem;
+      color: var(--dark-gray-company);
+      margin-top: 0.5rem;
+    }
+  }
+}

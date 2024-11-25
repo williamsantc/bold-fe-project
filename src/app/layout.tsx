@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -21,9 +22,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={monserratFont.variable}>
-        {children}
-      </body>
+    <Head>
+      <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="https://bold.co/apple-touch-icon.png"
+          data-gatsby-head="true"
+      />
+      <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="https://bold.co/favicon-32x32.png"
+          data-gatsby-head="true"
+      />
+      <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="https://bold.co/favicon-16x16.png"
+          data-gatsby-head="true"
+      />
+    </Head>
+    <body className={monserratFont.variable}>
+    {children}
+    </body>
     </html>
   );
 }
