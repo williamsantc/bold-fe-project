@@ -12,9 +12,6 @@ const Dashboard = async () => {
                 <TotalSales total={394561894} date="2024-06-01" />
             </div>
             <TransactionList transactions={dashboard} />
-            <pre>
-                {JSON.stringify(dashboard, null, 2)}
-            </pre>
         </div>
     );
 };
