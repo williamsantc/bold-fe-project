@@ -12,7 +12,6 @@ type TransactionItemProps = {
     transaction: Transaction;
 }
 
-
 const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
   const { setSelectedTransaction } = useContext(TransactionsContext);
   const statusLabel = useMemo(() => getStatusLabel(transaction.status), [transaction.status]);

@@ -13,7 +13,7 @@ import { SalesType } from "@/lib/constants/SalesType";
 import { calculateTotalSales } from "@/lib/Transaction";
 import { CookieKey } from "@/lib/constants/cookie";
 
-type TransactionsContextType = {
+export type TransactionsContextType = {
     selectedFilter?: DateFilters | null;
     selectedFilterLabel?: string;
     setSelectedFilter: (filter: DateFilters) => void;
@@ -51,17 +51,17 @@ export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
 
   const setFilter = (filter: DateFilters) => {
     setSelectedFilter(filter);
-    Cookies.set(CookieKey.SELECTED_DATE_FILTER, filter, { expires: 7 }); // Persistir en cookies
+    Cookies.set(CookieKey.SELECTED_DATE_FILTER, filter, { expires: 7 });
   };
 
   const updateFreeText = (text: string) => {
     setFreeText(text);
-    Cookies.set(CookieKey.FREE_TEXT, text, { expires: 7 }); // Persistir en cookies
+    Cookies.set(CookieKey.FREE_TEXT, text, { expires: 7 });
   };
 
   const updateSalesTypeFilter = (salesType: SalesType[]) => {
     setSalesTypeFilter(salesType);
-    Cookies.set(CookieKey.SALES_TYPE_FILTER, JSON.stringify(salesType), { expires: 7 }); // Persistir en cookies
+    Cookies.set(CookieKey.SALES_TYPE_FILTER, JSON.stringify(salesType), { expires: 7 });
   };
 
   useEffect(() => {
