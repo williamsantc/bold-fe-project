@@ -1,5 +1,6 @@
 'use client';
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import Cookies from "js-cookie";
 import { DateFilters } from "@/lib/constants/Filters";
 import {
   filterTransactions,
@@ -36,7 +37,6 @@ export const TransactionsContext = createContext<TransactionsContextType>({
   setSelectedTransaction: () => {},
 });
 
-
 export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
   const { isLoading, error, data } = useGetDashboard();
   const [selectedFilter, setSelectedFilter] = useState<DateFilters>(DateFilters.TODAY);
@@ -50,7 +50,27 @@ export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
 
   const setFilter = (filter: DateFilters) => {
     setSelectedFilter(filter);
+    Cookies.set('selectedFilter', filter, { expires: 7 }); // Persistir en cookies
   };
+
+  const updateFreeText = (text: string) => {
+    setFreeText(text);
+    Cookies.set('freeText', text, { expires: 7 }); // Persistir en cookies
+  };
+
+  const updateSalesTypeFilter = (salesType: SalesType[]) => {
+    setSalesTypeFilter(salesType);
+    Cookies.set('salesTypeFilter', JSON.stringify(salesType), { expires: 7 }); // Persistir en cookies
+  };
+
+  useEffect(() => {
+    const initialFilter = Cookies.get('selectedFilter') || DateFilters.TODAY;
+    const initialFreeText = Cookies.get('freeText') || '';
+    const initialSalesTypeFilter = Cookies.get('salesTypeFilter') ? JSON.parse(Cookies.get('salesTypeFilter')!) : [];
+    setSelectedFilter(initialFilter as DateFilters);
+    setFreeText(initialFreeText);
+    setSalesTypeFilter(initialSalesTypeFilter);
+  }, []);
 
   useEffect(() => {
     setTransactions(filterTransactions(data || [], selectedFilter, freeText, salesTypeFilter));
@@ -69,10 +89,10 @@ export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
       totalSales,
       areTransactionsLoading: isLoading,
       freeText,
-      setFreeText,
+      setFreeText: updateFreeText,
       error: (error) as Error,
       salesTypeFilter,
-      setSalesTypeFilter,
+      setSalesTypeFilter: updateSalesTypeFilter,
       selectedTransaction,
       setSelectedTransaction,
     }}>

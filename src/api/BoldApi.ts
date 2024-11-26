@@ -2,7 +2,9 @@ import { Transaction } from "@/lib/type/Transaction";
 import { useQuery } from "react-query";
 
 export const useGetDashboard = () => {
-  return useQuery('dashboard', getDashboard);
+  return useQuery(['dashboard'], getDashboard, {
+    refetchOnWindowFocus: false,
+  });
 };
 
 export const getDashboard = async (): Promise<Transaction[]> => {

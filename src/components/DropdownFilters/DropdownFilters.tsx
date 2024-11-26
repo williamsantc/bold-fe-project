@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, useContext } from "react";
+import { useState, FC, ChangeEvent, useContext, useEffect } from "react";
 import styles from "./DropdownFilters.module.scss";
 import Image from "next/image";
 import { TransactionsContext } from "@/context/TransactionsContext";
@@ -6,13 +6,24 @@ import { SalesType } from "@/lib/constants/SalesType";
 import Checkbox from "@/components/@core/Checkbox";
 
 const DropdownFilters: FC = () => {
-  const { setSalesTypeFilter } = useContext(TransactionsContext);
+  const { setSalesTypeFilter, salesTypeFilter } = useContext(TransactionsContext);
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState({
     [SalesType.TERMINAL]: false,
     [SalesType.PAYMENT_LINK]: false,
     all: false,
   });
+
+  useEffect(() => {
+    const terminalFilter = salesTypeFilter.includes(SalesType.TERMINAL);
+    const paymentLinkFilter = salesTypeFilter.includes(SalesType.PAYMENT_LINK);
+    const allChecked = terminalFilter && paymentLinkFilter;
+    setFilters({
+      [SalesType.TERMINAL]: terminalFilter,
+      [SalesType.PAYMENT_LINK]: paymentLinkFilter,
+      all: allChecked,
+    });
+  }, [salesTypeFilter]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
