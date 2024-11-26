@@ -1,9 +1,9 @@
-'use client';
-import React, {FC, useContext, useMemo} from "react";
+import { FC, useContext, useMemo } from "react";
 import styles from "./DateFilterButtons.module.scss";
 import { TransactionsContext } from "@/context/TransactionsContext";
 import { buildDateFiltersWithVisualLabels } from "@/lib/Filters";
 import { DateFilters } from "@/lib/constants/Filters";
+import { clsx } from "clsx";
 
 interface DateFilterButtonsProps {
     onFilterChange?: (filter: string) => void;
@@ -27,9 +27,7 @@ const DateFilterButtons: FC<DateFilterButtonsProps> = ({ onFilterChange }) => {
             {filtersWLabels.map((filter) => (
                 <button
                     key={filter.value}
-                    className={`${styles.button} ${
-                        selectedFilter === filter.value ? styles.active : ""
-                    }`}
+                    className={clsx(styles.button, { [styles.active]: selectedFilter === filter.value })}
                     onClick={() => handleFilterClick(filter.value)}
                 >
                     {filter.label}

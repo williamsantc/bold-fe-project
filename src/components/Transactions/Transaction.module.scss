@@ -1,73 +1,72 @@
 .tableContainer {
-  margin: 1rem 0;
-  overflow-x: auto;
-  background: var(--light-gray-company);
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
-.title {
-  padding: 1em;
-  background: var(--gradient-company);
-  color: white;
-  font-weight: normal;
-}
-
-.table {
-  width: 100%;
-  padding: 1em;
-  border-collapse: collapse;
-  font-size: 0.9em;
-  color: var(--dark-gray-company);
-
-  thead {
-    font-weight: bold;
+  .title {
+    color: white;
+    font-weight: normal;
   }
 
-  th,
-  td {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--dark-gray-company);
+  .cardContent {
+    overflow-x: auto;
+    padding: 0;
   }
 
-  tbody {
+  .table {
+    width: 100%;
+    padding: 1em;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    color: var(--dark-gray-company);
 
-    tr {
-      height: 80px;
+    thead {
+      font-weight: bold;
+    }
 
-      &:hover {
-        background: rgba(0, 0, 0, 0.05);
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--dark-gray-company);
+    }
+
+    tbody {
+
+      tr {
+        height: 80px;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
       }
     }
   }
-}
 
-.paymentMethodCell {
-  div {
-    display: flex;
-    align-items: center;
+  .paymentMethodCell {
+    div {
+      display: flex;
+      align-items: center;
 
-    span {
-      margin-left: 0.8em;
+      span {
+        margin-left: 0.8em;
+      }
     }
   }
-}
 
-.firstTransactionCell {
-  div {
-    display: flex;
-    align-items: center;
+  .firstTransactionCell {
+    div {
+      display: flex;
+      align-items: center;
 
-    span {
-      margin-left: 1em;
+      span {
+        margin-left: 1em;
+      }
     }
   }
-}
 
-.deduction {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--red-company);
-  margin-top: 0.25rem;
+  .deduction {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--red-company);
+    margin-top: 0.25rem;
+  }
+
 }

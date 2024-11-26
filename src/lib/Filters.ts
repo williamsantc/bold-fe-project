@@ -1,6 +1,7 @@
 import { DateFilters } from "@/lib/constants/Filters";
 import { getMonthFromTimestamp } from "@/lib/Time";
 import { Transaction } from "@/lib/type/Transaction";
+import { SalesType } from "@/lib/constants/SalesType";
 
 export const getVisualLabelForDateFilter = (filter?: DateFilters | null) => {
     switch (filter) {
@@ -32,10 +33,23 @@ export const buildDateFiltersWithVisualLabels = () => {
     ]
 }
 
-export const filterTransactions = (transactions: Transaction[], filter: DateFilters, freeText: string) => {
+export const filterTransactionsByDateFilter = (transactions: Transaction[], filter: DateFilters) => {
+    return transactions.filter(transaction => filterTransactionByDateFilter(transaction, filter));
+}
+
+export const filterTransactions = (transactions: Transaction[], filter: DateFilters, freeText: string, salesTypeFilter: SalesType[]) => {
     return transactions.filter(transaction => {
-        return filterTransactionByDateFilter(transaction, filter) && filterTransactionByFreeText(transaction, freeText);
+        return (
+            filterTransactionByDateFilter(transaction, filter) &&
+            filterTransactionByFreeText(transaction, freeText) &&
+            filterTransactionBySalesType(transaction, salesTypeFilter)
+        );
     });
+}
+
+export const filterTransactionBySalesType = (transaction: Transaction, salesTypeFilter: SalesType[]) => {
+    if (salesTypeFilter.length === 0) return true;
+    return salesTypeFilter.includes(transaction.salesType);
 }
 
 export const filterTransactionByDateFilter = (transaction: Transaction, filter: DateFilters) => {

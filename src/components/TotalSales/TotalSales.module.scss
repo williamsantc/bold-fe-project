@@ -1,21 +1,6 @@
 .totalSales {
-  background: white;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
   .header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 1rem;
-    color: var(--light-gray-company);
-    background: var(--gradient-company);
-    padding: 1em;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 
     .infoIcon {
       border: 1px solid var(--light-gray-company);
@@ -29,9 +14,7 @@
   }
 
   .body {
-    padding: 1em;
     text-align: center;
-    width: 100%;
 
     .total {
       font-size: 2rem;

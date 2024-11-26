@@ -34,16 +34,16 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
             <td>{transaction.id}</td>
             <td>
                 <b>{formatCurrency(transaction.amount)}</b>
-                {transaction.deduction && (
+                {transaction.deduction ? (
                     <div>
                         <span>
-                    Deduction Bold:
+                    Deducción Bold:
                   </span>
                         <span className={styles.deduction}>
                     {formatCurrency(transaction.deduction)}
                   </span>
                     </div>
-                )}
+                ) : null}
             </td>
         </tr>
     );

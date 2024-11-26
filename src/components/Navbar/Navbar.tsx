@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 import styles from './Navbar.module.scss';
 
-const Navbar: React.FC = () => {
+const Navbar: FC = () => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.logoContainer}>
