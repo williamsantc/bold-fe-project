@@ -4,6 +4,7 @@ import React, {
   LegacyRef,
   ReactNode,
   useState,
+  useId,
 } from "react";
 import styles from "./Tooltip.module.scss";
 import clsx from "clsx";
@@ -17,6 +18,7 @@ type TooltipProps = {
 const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
   ({ text, children, className, trigger = "hover", ...rest }, ref) => {
     const [isVisible, setIsVisible] = useState(false);
+    const tooltipId = useId();
 
     const showTooltip = () => setIsVisible(true);
     const hideTooltip = () => setIsVisible(false);
@@ -28,6 +30,8 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
               ? {
                 onMouseEnter: showTooltip,
                 onMouseLeave: hideTooltip,
+                onFocus: showTooltip,
+                onBlur: hideTooltip,
               }
               : {
                 onClick: toggleTooltip,
@@ -39,10 +43,24 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
         ref={ref as LegacyRef<HTMLDivElement>}
         {...rest}
       >
-        <div className={styles.target} {...eventHandlers}>
+        <div
+          className={styles.target}
+          {...eventHandlers}
+          tabIndex={0}
+          aria-describedby={isVisible ? tooltipId : undefined}
+        >
           {children}
         </div>
-        {isVisible && <div className={styles.tooltip}>{text}</div>}
+        {isVisible && (
+          <div
+            id={tooltipId}
+            className={styles.tooltip}
+            role="tooltip"
+            aria-live="polite"
+          >
+            {text}
+          </div>
+        )}
       </div>
     );
   }

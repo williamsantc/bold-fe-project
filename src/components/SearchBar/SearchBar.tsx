@@ -11,13 +11,13 @@ const SearchBar: FC<SearchBarProps> = ({ setFreeText, freeText }) => {
   return (
     <div className={styles.searchBar}>
       <label htmlFor="search" className={styles.label}>
-        <Image className={styles.icon} src="/search.svg" alt="search icon" width={16} height={16} />
+        <Image className={styles.icon} src="/search.svg" alt="Ícono de búsqueda" width={16} height={16} />
         <input
           id="search"
           type="text"
           placeholder="Buscar"
           className={styles.input}
-          aria-label="Search transactions"
+          aria-label="Buscar transacciones"
           value={freeText}
           onChange={(e) => setFreeText(e.target.value)}
         />

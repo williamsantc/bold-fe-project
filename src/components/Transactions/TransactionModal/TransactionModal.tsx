@@ -9,7 +9,7 @@ import PaymentMethod from "@/components/Transactions/PaymentMethod";
 import Image from "next/image";
 import { Status } from "@/lib/constants/Status";
 import LogoSalesType from "@/components/LogoSalesType";
-import FocusLock from 'react-focus-lock';
+import FocusLock from "react-focus-lock";
 
 const TransactionModal: FC = () => {
   const { selectedTransaction, setSelectedTransaction } = useContext(TransactionsContext);
@@ -19,7 +19,10 @@ const TransactionModal: FC = () => {
   const [_, startTransition] = useTransition();
   const [isVisible, setIsVisible] = useState(false);
 
-  const statusLabel = useMemo(() => getStatusLabel(selectedTransaction?.status), [selectedTransaction?.status]);
+  const statusLabel = useMemo(
+    () => getStatusLabel(selectedTransaction?.status),
+    [selectedTransaction?.status]
+  );
 
   const _closeModal = () => {
     startTransition(() => {
@@ -63,6 +66,7 @@ const TransactionModal: FC = () => {
       document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
     } else {
       const scrollY = parseInt(document.body.style.top || "0", 10);
       document.body.style.position = "";
@@ -93,26 +97,40 @@ const TransactionModal: FC = () => {
           [styles.slideIn]: isVisible,
           [styles.slideOut]: !isVisible,
         })}
+        role="dialog"
+        aria-labelledby="Detalle de la transacción"
+        aria-describedby="Información completa sobre la transacción seleccionada"
+        aria-modal="true"
       >
         <FocusLock disabled={!isVisible} returnFocus>
           <button
             className={styles.closeButton}
             onClick={_closeModal}
-            aria-label="Close"
+            aria-label="Cerrar modal"
           >
-            &times;
+              &times;
           </button>
 
           <div className={styles.modalHeader}>
             <Image
-              src={selectedTransaction?.status === Status.SUCCESSFUL ? '/circle-check.svg' : '/circle-cancel.svg'}
-              alt="status"
+              src={
+                selectedTransaction?.status === Status.SUCCESSFUL
+                  ? "/circle-check.svg"
+                  : "/circle-cancel.svg"
+              }
+              alt={`Estado de transacción: ${statusLabel}`}
               width={32}
               height={32}
             />
-            <p className={styles.status}>{statusLabel}</p>
-            <h2 className={styles.amount}>{formatCurrency(selectedTransaction?.amount || 0)}</h2>
-            <p className={styles.date}>{formatFullDate(selectedTransaction?.createdAt || 0)}</p>
+            <p id="modal-title" className={styles.status}>
+              {statusLabel}
+            </p>
+            <h2 className={styles.amount}>
+              {formatCurrency(selectedTransaction?.amount || 0)}
+            </h2>
+            <p id="modal-description" className={styles.date}>
+              {formatFullDate(selectedTransaction?.createdAt || 0)}
+            </p>
           </div>
 
           <div className={styles.modalBody}>
@@ -126,7 +144,9 @@ const TransactionModal: FC = () => {
               <div className={styles.row}>
                 <span className={styles.title}>Deducción Bold:</span>
                 <span className={clsx(styles.deduction, styles.description)}>
-                  <strong>-{formatCurrency(selectedTransaction.deduction)}</strong>
+                  <strong>
+                    -{formatCurrency(selectedTransaction.deduction)}
+                  </strong>
                 </span>
               </div>
             )}
@@ -137,7 +157,9 @@ const TransactionModal: FC = () => {
                 <PaymentMethod
                   paymentMethod={selectedTransaction?.paymentMethod}
                   franchise={selectedTransaction?.franchise}
-                  transactionReference={selectedTransaction?.transactionReference}
+                  transactionReference={
+                    selectedTransaction?.transactionReference
+                  }
                 />
               </span>
             </div>
@@ -145,8 +167,10 @@ const TransactionModal: FC = () => {
               <span className={styles.title}>Tipo de pago:</span>
               <span className={clsx(styles.description, styles.salesType)}>
                 <LogoSalesType salesType={selectedTransaction?.salesType || ""} />
-                &nbsp;
-                <strong>{getSalesTypeLabel(selectedTransaction?.salesType || "")}</strong>
+                  &nbsp;
+                <strong>
+                  {getSalesTypeLabel(selectedTransaction?.salesType || "")}
+                </strong>
               </span>
             </div>
           </div>
