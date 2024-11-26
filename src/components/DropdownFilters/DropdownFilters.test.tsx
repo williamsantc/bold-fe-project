@@ -19,19 +19,23 @@ describe("DropdownFilters component", () => {
       </TransactionsContext.Provider>
     );
 
-  it("renders the filter button", () => {
+  it("renders the filter button with proper aria attributes", () => {
     renderWithContext();
     const filterButton = screen.getByRole("button", { name: /Filtrar/i });
     expect(filterButton).toBeInTheDocument();
+    expect(filterButton).toHaveAttribute("aria-expanded", "false");
+    expect(filterButton).toHaveAttribute("aria-controls", "dropdown-filters");
   });
 
-  it("opens the dropdown when the filter button is clicked", () => {
+  it("opens the dropdown and updates aria-expanded when the filter button is clicked", () => {
     renderWithContext();
     const filterButton = screen.getByRole("button", { name: /Filtrar/i });
     fireEvent.click(filterButton);
-    expect(screen.getByText("Cobro con datáfono")).toBeInTheDocument();
-    expect(screen.getByText("Cobro con link de pago")).toBeInTheDocument();
-    expect(screen.getByText("Ver todos")).toBeInTheDocument();
+
+    expect(filterButton).toHaveAttribute("aria-expanded", "true");
+    const dropdown = screen.getByRole("dialog");
+    expect(dropdown).toBeInTheDocument();
+    expect(dropdown).toHaveAttribute("aria-labelledby", "filters-title");
   });
 
   it("closes the dropdown when the close button is clicked", () => {
@@ -39,13 +43,25 @@ describe("DropdownFilters component", () => {
     const filterButton = screen.getByRole("button", { name: /Filtrar/i });
     fireEvent.click(filterButton);
 
-    const closeButton = screen.getByLabelText("Close");
+    const closeButton = screen.getByLabelText("Cerrar");
     fireEvent.click(closeButton);
 
-    expect(screen.queryByText("Cobro con datáfono")).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(filterButton).toHaveAttribute("aria-expanded", "false");
   });
 
-  it("updates the filters when checkboxes are toggled", () => {
+  it("closes the dropdown when Escape is pressed", () => {
+    renderWithContext();
+    const filterButton = screen.getByRole("button", { name: /Filtrar/i });
+    fireEvent.click(filterButton);
+
+    fireEvent.keyDown(screen.getByRole("dialog"), { key: "Escape" });
+
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(filterButton).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("toggles checkbox states correctly", () => {
     renderWithContext();
     const filterButton = screen.getByRole("button", { name: /Filtrar/i });
     fireEvent.click(filterButton);
@@ -80,10 +96,10 @@ describe("DropdownFilters component", () => {
     fireEvent.click(applyButton);
 
     expect(mockSetSalesTypeFilter).toHaveBeenCalledWith([SalesType.TERMINAL]);
-    expect(screen.queryByText("Cobro con datáfono")).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("initializes filters from the context", () => {
+  it("initializes checkboxes based on context state", () => {
     renderWithContext([SalesType.TERMINAL]);
     const filterButton = screen.getByRole("button", { name: /Filtrar/i });
     fireEvent.click(filterButton);

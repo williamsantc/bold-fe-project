@@ -16,7 +16,7 @@ describe("Checkbox component", () => {
     const label = screen.getByText("Test Label");
     expect(label).toBeInTheDocument();
 
-    const input = screen.getByRole("checkbox");
+    const input = screen.getByRole("checkbox", { name: "Test Label" });
     expect(input).toBeInTheDocument();
     expect(input).not.toBeChecked();
   });
@@ -26,16 +26,22 @@ describe("Checkbox component", () => {
     render(
       <Checkbox
         onChange={handleChange}
-        checked={false}
         value="test-value"
         label="Test Label"
       />
     );
+    const input = screen.getByRole("checkbox", { name: "Test Label" });
 
-    const input = screen.getByRole("checkbox");
     fireEvent.click(input);
+
     expect(handleChange).toHaveBeenCalledTimes(1);
+
+    const changeEvent = handleChange.mock.calls[0][0];
+    expect(changeEvent.target.value).toBe("test-value");
+    expect(changeEvent.target.checked).toBe(true);
   });
+
+
 
   it("handles keyboard Enter key to toggle the checkbox", () => {
     const handleChange = vi.fn();
@@ -48,13 +54,43 @@ describe("Checkbox component", () => {
       />
     );
 
-    const input = screen.getByRole("checkbox");
+    const input = screen.getByRole("checkbox", { name: "Test Label" });
     fireEvent.keyDown(input, { key: "Enter", code: "Enter", charCode: 13 });
 
     expect(handleChange).toHaveBeenCalledTimes(1);
+
     expect(handleChange).toHaveBeenCalledWith(
       expect.objectContaining({
-        target: { value: "test-value", checked: true },
+        target: expect.objectContaining({
+          value: "test-value",
+          checked: true,
+        }),
+      })
+    );
+  });
+
+  it("handles keyboard Space key to toggle the checkbox", () => {
+    const handleChange = vi.fn();
+    render(
+      <Checkbox
+        onChange={handleChange}
+        checked={false}
+        value="test-value"
+        label="Test Label"
+      />
+    );
+
+    const input = screen.getByRole("checkbox", { name: "Test Label" });
+    fireEvent.keyDown(input, { key: " ", code: "Space", charCode: 32 });
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+
+    expect(handleChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          value: "test-value",
+          checked: true,
+        }),
       })
     );
   });
@@ -69,11 +105,11 @@ describe("Checkbox component", () => {
       />
     );
 
-    const input = screen.getByRole("checkbox");
+    const input = screen.getByRole("checkbox", { name: "Test Label" });
     expect(input).toBeChecked();
   });
 
-  it("applies custom className", () => {
+  it("applies custom className to the wrapper", () => {
     render(
       <Checkbox
         onChange={() => {}}
@@ -84,7 +120,7 @@ describe("Checkbox component", () => {
       />
     );
 
-    const label = screen.getByText("Test Label");
-    expect(label).toHaveClass("custom-class");
+    const wrapper = screen.getByText("Test Label").closest("div");
+    expect(wrapper).toHaveClass("custom-class");
   });
 });
