@@ -7,32 +7,32 @@ type CardProps = {
 } & Omit<HTMLProps<HTMLDivElement>, "ref">;
 
 const CardBase: FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
-    ({ children, className, ...rest }, ref) => {
-        return (
-            <div className={clsx(styles.card, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
-                {children}
-            </div>
-        );
-    }
+  ({ children, className, ...rest }, ref) => {
+    return (
+      <div className={clsx(styles.card, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
+        {children}
+      </div>
+    );
+  }
 );
 
 CardBase.displayName = "CardBase";
 
 const CardHeader: FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(({ children, className, ...rest }, ref) => {
-    return (
-        <div className={clsx(styles.cardHeader, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
-            {children}
-        </div>
-    );
+  return (
+    <div className={clsx(styles.cardHeader, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
+      {children}
+    </div>
+  );
 });
 CardHeader.displayName = "CardHeader";
 
 const CardBody: FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(({ children, className, ...rest }, ref) => {
-    return (
-        <div className={clsx(styles.cardBody, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
-            {children}
-        </div>
-    );
+  return (
+    <div className={clsx(styles.cardBody, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
+      {children}
+    </div>
+  );
 });
 CardBody.displayName = "CardBody";
 

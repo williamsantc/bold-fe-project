@@ -2,13 +2,13 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { DateFilters } from "@/lib/constants/Filters";
 import {
-    filterTransactions,
-    filterTransactionsByDateFilter,
-    getVisualLabelForDateFilter
+  filterTransactions,
+  filterTransactionsByDateFilter,
+  getVisualLabelForDateFilter
 } from "@/lib/Filters";
 import { Transaction } from "@/lib/type/Transaction";
 import { useGetDashboard } from "@/api/BoldApi";
-import {SalesType} from "@/lib/constants/SalesType";
+import { SalesType } from "@/lib/constants/SalesType";
 import { calculateTotalSales } from "@/lib/Transaction";
 
 type TransactionsContextType = {
@@ -28,55 +28,55 @@ type TransactionsContextType = {
 }
 
 export const TransactionsContext = createContext<TransactionsContextType>({
-    setSelectedFilter: () => {},
-    transactions: [],
-    setFreeText: () => {},
-    salesTypeFilter: [],
-    setSalesTypeFilter: () => {},
-    setSelectedTransaction: () => {},
+  setSelectedFilter: () => {},
+  transactions: [],
+  setFreeText: () => {},
+  salesTypeFilter: [],
+  setSalesTypeFilter: () => {},
+  setSelectedTransaction: () => {},
 });
 
 
 export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
-    const { isLoading, error, data } = useGetDashboard();
-    const [selectedFilter, setSelectedFilter] = useState<DateFilters>(DateFilters.TODAY);
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const [totalSales, setTotalSales] = useState<number>(0);
-    const [freeText, setFreeText] = useState<string>('');
-    const [salesTypeFilter, setSalesTypeFilter] = useState<SalesType[]>([]);
-    const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const { isLoading, error, data } = useGetDashboard();
+  const [selectedFilter, setSelectedFilter] = useState<DateFilters>(DateFilters.TODAY);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [totalSales, setTotalSales] = useState<number>(0);
+  const [freeText, setFreeText] = useState<string>('');
+  const [salesTypeFilter, setSalesTypeFilter] = useState<SalesType[]>([]);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
 
-    const selectedFilterLabel = useMemo(() => getVisualLabelForDateFilter(selectedFilter), [selectedFilter]);
+  const selectedFilterLabel = useMemo(() => getVisualLabelForDateFilter(selectedFilter), [selectedFilter]);
 
-    const setFilter = (filter: DateFilters) => {
-        setSelectedFilter(filter);
-    };
+  const setFilter = (filter: DateFilters) => {
+    setSelectedFilter(filter);
+  };
 
-    useEffect(() => {
-        setTransactions(filterTransactions(data || [], selectedFilter, freeText, salesTypeFilter));
-    }, [selectedFilter, freeText, salesTypeFilter, data])
+  useEffect(() => {
+    setTransactions(filterTransactions(data || [], selectedFilter, freeText, salesTypeFilter));
+  }, [selectedFilter, freeText, salesTypeFilter, data]);
 
-    useEffect(() => {
-        setTotalSales(calculateTotalSales(filterTransactionsByDateFilter(data || [], selectedFilter)));
-    }, [data, selectedFilter]);
+  useEffect(() => {
+    setTotalSales(calculateTotalSales(filterTransactionsByDateFilter(data || [], selectedFilter)));
+  }, [data, selectedFilter]);
 
-    return (
-        <TransactionsContext.Provider value={{
-            selectedFilter,
-            setSelectedFilter: setFilter,
-            selectedFilterLabel,
-            transactions: transactions || [],
-            totalSales,
-            areTransactionsLoading: isLoading,
-            freeText,
-            setFreeText,
-            error: (error) as Error,
-            salesTypeFilter,
-            setSalesTypeFilter,
-            selectedTransaction,
-            setSelectedTransaction,
-        }}>
-    {children}
+  return (
+    <TransactionsContext.Provider value={{
+      selectedFilter,
+      setSelectedFilter: setFilter,
+      selectedFilterLabel,
+      transactions: transactions || [],
+      totalSales,
+      areTransactionsLoading: isLoading,
+      freeText,
+      setFreeText,
+      error: (error) as Error,
+      salesTypeFilter,
+      setSalesTypeFilter,
+      selectedTransaction,
+      setSelectedTransaction,
+    }}>
+      {children}
     </TransactionsContext.Provider>
-);
+  );
 };

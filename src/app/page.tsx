@@ -5,8 +5,8 @@ import Dashboard from "@/containers/Dashboard";
 export default function Home() {
   return (
     <>
-        <Navbar />
-        <Dashboard />
+      <Navbar />
+      <Dashboard />
     </>
   );
 }
