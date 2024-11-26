@@ -1,4 +1,3 @@
-'use client';
 import { FC, useContext } from 'react';
 import styles from '../Transaction.module.scss';
 import Skeleton from 'react-loading-skeleton';
@@ -7,9 +6,7 @@ import SearchBar from "@/components/SearchBar";
 import { TransactionsContext } from "@/context/TransactionsContext";
 import Card from "@/components/@core/Card";
 
-interface TransactionListProps {}
-
-const TransactionList: FC<TransactionListProps> = () => {
+const TransactionList: FC = () => {
     const { selectedFilterLabel, freeText, setFreeText, transactions, areTransactionsLoading } = useContext(TransactionsContext);
 
     return (
