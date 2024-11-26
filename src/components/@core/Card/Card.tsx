@@ -14,6 +14,8 @@ const Card: FC<CardProps> & { Header: FC<CardProps>; Body: FC<CardProps> } = for
     );
 }) as unknown as FC<CardProps> & { Header: FC<CardProps>; Body: FC<CardProps> };
 
+Card.displayName = 'Card';
+
 const CardHeader: FC<CardProps> = forwardRef(({ children, className, ...rest }, ref) => {
     return (
         <div className={clsx(styles.cardHeader, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
@@ -22,6 +24,8 @@ const CardHeader: FC<CardProps> = forwardRef(({ children, className, ...rest }, 
     );
 });
 
+CardHeader.displayName = 'CardHeader';
+
 const CardBody: FC<CardProps> = forwardRef(({ children, className, ...rest }, ref) => {
     return (
         <div className={clsx(styles.cardBody, className)} ref={ref as LegacyRef<HTMLDivElement>} {...rest}>
@@ -29,6 +33,8 @@ const CardBody: FC<CardProps> = forwardRef(({ children, className, ...rest }, re
         </div>
     );
 });
+
+CardBody.displayName = 'CardBody';
 
 Card.Header = CardHeader;
 Card.Body = CardBody;

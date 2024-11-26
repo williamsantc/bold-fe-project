@@ -5,7 +5,7 @@ import { TransactionsContext } from "@/context/TransactionsContext";
 import { SalesType } from "@/lib/constants/SalesType";
 
 const DropdownFilters: FC = () => {
-    const { salesTypeFilter, setSalesTypeFilter } = useContext(TransactionsContext);
+    const { setSalesTypeFilter } = useContext(TransactionsContext);
     const [isOpen, setIsOpen] = useState(false);
     const [filters, setFilters] = useState({
         [SalesType.TERMINAL]: false,
