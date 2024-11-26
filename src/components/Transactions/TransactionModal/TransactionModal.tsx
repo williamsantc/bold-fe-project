@@ -56,7 +56,6 @@ const TransactionModal: FC = () => {
     if (selectedTransaction) {
       setIsVisible(true);
 
-      // Bloquear scroll en todos los navegadores
       const scrollY = window.scrollY;
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
@@ -64,7 +63,6 @@ const TransactionModal: FC = () => {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
     } else {
-      // Restaurar scroll
       const scrollY = parseInt(document.body.style.top || "0", 10);
       document.body.style.position = "";
       document.body.style.top = "";
