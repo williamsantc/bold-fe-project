@@ -95,7 +95,7 @@ const DropdownFilters: FC = () => {
       >
           Filtrar
         <span className={styles.icon}>
-          <Image src="/filters.svg" alt="Filters" width={20} height={20} />
+          <Image src="/filters.svg" alt="Filtros por tipo de transacción" width={20} height={20} />
         </span>
       </button>
 
