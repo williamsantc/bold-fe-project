@@ -1,17 +1,33 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import TotalSales from '@/components/TotalSales';
 import styles from './Dashboard.module.scss';
-import { getDashboard } from "@/api/BoldApi";
-import TransactionList from "../../components/Transactions/TransactionList";
+import TransactionList from "@/components/Transactions/TransactionList";
+import DateFilterButtons from "@/components/Transactions/DateFilterButtons";
+import {TransactionsContext} from "@/context/TransactionsContext";
+import {DateFilters} from "@/lib/constants/Filters";
 
-const Dashboard = async () => {
-    const dashboard = await getDashboard();
+const Dashboard = () => {
+    const { transactions, totalSales, selectedFilterLabel, selectedFilter, areTransactionsLoading } = useContext(TransactionsContext);
+
+    const totalSalesLabel = selectedFilter === DateFilters.CURRENT_MONTH ? `${selectedFilterLabel}, 2024` : selectedFilterLabel;
+
     return (
         <div className={styles.dashboard}>
-            <div className={styles.totalSalesSection}>
-                <TotalSales total={394561894} date="2024-06-01" />
+            <div className={styles.topSection}>
+                <div className={styles.leftTopSection}>
+                    <TotalSales
+                        total={totalSales}
+                        label={totalSalesLabel}
+                        areTransactionsLoading={areTransactionsLoading}
+                    />
+                </div>
+                <div className={styles.rightTopSection}>
+                    <DateFilterButtons />
+                </div>
             </div>
-            <TransactionList transactions={dashboard} />
+            <div className={styles.bottomSection}>
+                <TransactionList transactions={transactions} />
+            </div>
         </div>
     );
 };

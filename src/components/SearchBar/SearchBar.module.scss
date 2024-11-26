@@ -1,0 +1,37 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--light-gray-company);
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--dark-gray-company);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: text;
+}
+
+.input {
+  padding: 1.2em 0;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--dark-gray-company);
+  background: transparent;
+
+  &::placeholder {
+    color: var(--dark-gray-company);
+    opacity: 0.6;
+  }
+}
+
+.icon {
+  margin-right: 0.5rem;
+  color: var(--light-gray-company);
+}

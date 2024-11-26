@@ -8,3 +8,11 @@ export const formatFullDate = (timestamp: number): string => {
         second: '2-digit',
     }).format(timestamp)
 }
+
+export const getMonthFromTimestamp = (timestamp: number): string => {
+    const formattedMonth = new Intl.DateTimeFormat('es-CO', {
+        month: 'long',
+    }).format(new Date(timestamp));
+
+    return formattedMonth.charAt(0).toUpperCase() + formattedMonth.slice(1);
+}

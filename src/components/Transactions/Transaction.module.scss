@@ -6,6 +6,13 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.title {
+  padding: 1em;
+  background: var(--gradient-company);
+  color: white;
+  font-weight: normal;
+}
+
 .table {
   width: 100%;
   padding: 1em;
@@ -14,19 +21,25 @@
   color: var(--dark-gray-company);
 
   thead {
-    background: var(--gradient-company);
-    color: white;
+    font-weight: bold;
   }
 
   th,
   td {
     padding: 0.75rem 1rem;
     text-align: left;
-    border-bottom: 1px solid var(--light-gray-company);
+    border-bottom: 1px solid var(--dark-gray-company);
   }
 
-  tbody tr:hover {
-    background: rgba(0, 0, 0, 0.05);
+  tbody {
+
+    tr {
+      height: 80px;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
   }
 }
 
@@ -37,6 +50,17 @@
 
     span {
       margin-left: 0.8em;
+    }
+  }
+}
+
+.firstTransactionCell {
+  div {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 1em;
     }
   }
 }

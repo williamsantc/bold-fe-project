@@ -1,13 +1,44 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 2rem;
   background-color: var(--background-color-company);
 }
 
-.totalSalesSection {
+.topSection {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin: 2em 2em 1.5em 2em;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .leftTopSection {
+    padding: 1em;
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+
+  .rightTopSection {
+    padding: 1em;
+    flex: 0 0 60%;
+    max-width: 60%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @media screen and (max-width: 768px) {
+    .leftTopSection,
+    .rightTopSection {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .dateFilterButtons {
+      justify-content: center;
+    }
+  }
+
+}
+
+.bottomSection {
+  padding: 0 2em 2em 2em;
 }
