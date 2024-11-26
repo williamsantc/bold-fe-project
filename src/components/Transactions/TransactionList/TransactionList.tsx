@@ -1,25 +1,24 @@
 'use client';
-import {FC, useContext, useMemo} from 'react';
+import { FC, useContext } from 'react';
 import styles from '../Transaction.module.scss';
 import { Transaction } from "@/lib/type/Transaction";
 import TransactionItem from "@/components/Transactions/TransactionItem";
 import SearchBar from "@/components/SearchBar";
 import { TransactionsContext } from "@/context/TransactionsContext";
-import {getVisualLabelForDateFilter} from "@/lib/Filters";
 
 interface TransactionListProps {
     transactions: Transaction[];
 }
 
 const TransactionList: FC<TransactionListProps> = ({ transactions }) => {
-    const { selectedFilterLabel } = useContext(TransactionsContext);
+    const { selectedFilterLabel, freeText, setFreeText } = useContext(TransactionsContext);
 
     return (
         <div className={styles.tableContainer}>
             <div>
                 <h3 className={styles.title}>Tus ventas de {selectedFilterLabel}</h3>
             </div>
-            <SearchBar />
+            <SearchBar freeText={freeText} setFreeText={setFreeText} />
             <table className={styles.table}>
                 <thead>
                 <tr>

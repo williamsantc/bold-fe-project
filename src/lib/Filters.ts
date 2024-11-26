@@ -32,22 +32,41 @@ export const buildDateFiltersWithVisualLabels = () => {
     ]
 }
 
-export const getTransactionsForDateFilter = (transactions: Transaction[], filter: DateFilters) => {
+export const filterTransactions = (transactions: Transaction[], filter: DateFilters, freeText: string) => {
+    return transactions.filter(transaction => {
+        return filterTransactionByDateFilter(transaction, filter) && filterTransactionByFreeText(transaction, freeText);
+    });
+}
+
+export const filterTransactionByDateFilter = (transaction: Transaction, filter: DateFilters) => {
     const now = new Date();
     switch (filter) {
         case DateFilters.TODAY:
-            return transactions
-                .filter(transaction => new Date(transaction.createdAt).getDate() === now.getDate());
+            return new Date(transaction.createdAt).getDate() === now.getDate();
         case DateFilters.THIS_WEEK:
             const startOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
-            return transactions
-                .filter(transaction => new Date(transaction.createdAt) >= startOfWeek);
+            return new Date(transaction.createdAt) >= startOfWeek;
         case DateFilters.CURRENT_MONTH:
-            return transactions
-                .filter(transaction => new Date(transaction.createdAt).getMonth() === now.getMonth());
+            return new Date(transaction.createdAt).getMonth() === now.getMonth();
         default:
-            return transactions;
+            return true;
     }
+}
+
+export function filterTransactionByFreeText(transaction: Transaction, freeText: string) {
+    if (!freeText) return true;
+
+    const query = freeText.toLowerCase();
+
+    return Boolean(
+        transaction.id.toLowerCase().includes(query) ||
+        transaction.status.toLowerCase().includes(query) ||
+        transaction.paymentMethod.toLowerCase().includes(query) ||
+        transaction.salesType.toLowerCase().includes(query) ||
+        transaction.amount.toString().includes(query) ||
+        transaction.franchise?.toLowerCase().includes(query) ||
+        transaction.transactionReference?.toString().includes(query)
+    );;
 }
 
 export const calculateTotalSales = (transactions: Transaction[]) => {
