@@ -9,6 +9,7 @@ import PaymentMethod from "@/components/Transactions/PaymentMethod";
 import Image from "next/image";
 import { Status } from "@/lib/constants/Status";
 import LogoSalesType from "@/components/LogoSalesType";
+import FocusLock from 'react-focus-lock';
 
 const TransactionModal: FC = () => {
   const { selectedTransaction, setSelectedTransaction } = useContext(TransactionsContext);
@@ -93,61 +94,63 @@ const TransactionModal: FC = () => {
           [styles.slideOut]: !isVisible,
         })}
       >
-        <button
-          className={styles.closeButton}
-          onClick={_closeModal}
-          aria-label="Close"
-        >
+        <FocusLock disabled={!isVisible} returnFocus>
+          <button
+            className={styles.closeButton}
+            onClick={_closeModal}
+            aria-label="Close"
+          >
             &times;
-        </button>
+          </button>
 
-        <div className={styles.modalHeader}>
-          <Image
-            src={selectedTransaction?.status === Status.SUCCESSFUL ? '/circle-check.svg' : '/circle-cancel.svg'}
-            alt="status"
-            width={32}
-            height={32}
-          />
-          <p className={styles.status}>{statusLabel}</p>
-          <h2 className={styles.amount}>{formatCurrency(selectedTransaction?.amount || 0)}</h2>
-          <p className={styles.date}>{formatFullDate(selectedTransaction?.createdAt || 0)}</p>
-        </div>
-
-        <div className={styles.modalBody}>
-          <div className={styles.row}>
-            <span className={styles.title}>ID transacción Bold:</span>
-            <span className={styles.description}>
-              <strong>{selectedTransaction?.id}</strong>
-            </span>
+          <div className={styles.modalHeader}>
+            <Image
+              src={selectedTransaction?.status === Status.SUCCESSFUL ? '/circle-check.svg' : '/circle-cancel.svg'}
+              alt="status"
+              width={32}
+              height={32}
+            />
+            <p className={styles.status}>{statusLabel}</p>
+            <h2 className={styles.amount}>{formatCurrency(selectedTransaction?.amount || 0)}</h2>
+            <p className={styles.date}>{formatFullDate(selectedTransaction?.createdAt || 0)}</p>
           </div>
-          {selectedTransaction?.deduction && (
+
+          <div className={styles.modalBody}>
             <div className={styles.row}>
-              <span className={styles.title}>Deducción Bold:</span>
-              <span className={clsx(styles.deduction, styles.description)}>
-                <strong>-{formatCurrency(selectedTransaction.deduction)}</strong>
+              <span className={styles.title}>ID transacción Bold:</span>
+              <span className={styles.description}>
+                <strong>{selectedTransaction?.id}</strong>
               </span>
             </div>
-          )}
-          <div className={styles.divider} />
-          <div className={styles.row}>
-            <span className={styles.title}>Método de pago:</span>
-            <span className={clsx(styles.paymentMethod, styles.description)}>
-              <PaymentMethod
-                paymentMethod={selectedTransaction?.paymentMethod}
-                franchise={selectedTransaction?.franchise}
-                transactionReference={selectedTransaction?.transactionReference}
-              />
-            </span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.title}>Tipo de pago:</span>
-            <span className={clsx(styles.description, styles.salesType)}>
-              <LogoSalesType salesType={selectedTransaction?.salesType || ""} />
+            {selectedTransaction?.deduction && (
+              <div className={styles.row}>
+                <span className={styles.title}>Deducción Bold:</span>
+                <span className={clsx(styles.deduction, styles.description)}>
+                  <strong>-{formatCurrency(selectedTransaction.deduction)}</strong>
+                </span>
+              </div>
+            )}
+            <div className={styles.divider} />
+            <div className={styles.row}>
+              <span className={styles.title}>Método de pago:</span>
+              <span className={clsx(styles.paymentMethod, styles.description)}>
+                <PaymentMethod
+                  paymentMethod={selectedTransaction?.paymentMethod}
+                  franchise={selectedTransaction?.franchise}
+                  transactionReference={selectedTransaction?.transactionReference}
+                />
+              </span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.title}>Tipo de pago:</span>
+              <span className={clsx(styles.description, styles.salesType)}>
+                <LogoSalesType salesType={selectedTransaction?.salesType || ""} />
                 &nbsp;
-              <strong>{getSalesTypeLabel(selectedTransaction?.salesType || "")}</strong>
-            </span>
+                <strong>{getSalesTypeLabel(selectedTransaction?.salesType || "")}</strong>
+              </span>
+            </div>
           </div>
-        </div>
+        </FocusLock>
       </div>
     </div>
   );
