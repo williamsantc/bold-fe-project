@@ -1,0 +1,64 @@
+.notification {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  @media screen and (max-width: 768px) {
+    justify-content: end;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-left: 1.5em;
+  @media screen and (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 1em;
+  }
+}
+
+.acceptButton {
+  background-color: var(--blue-company);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-monserrat), serif;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+}
+
+.rejectButton {
+  background-color: var(--light-gray-company);
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: var(--font-monserrat), serif;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+}

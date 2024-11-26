@@ -11,6 +11,7 @@ import { Transaction } from "@/lib/type/Transaction";
 import { useGetDashboard } from "@/api/BoldApi";
 import { SalesType } from "@/lib/constants/SalesType";
 import { calculateTotalSales } from "@/lib/Transaction";
+import { CookieKey } from "@/lib/constants/cookie";
 
 type TransactionsContextType = {
     selectedFilter?: DateFilters | null;
@@ -50,23 +51,27 @@ export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
 
   const setFilter = (filter: DateFilters) => {
     setSelectedFilter(filter);
-    Cookies.set('selectedFilter', filter, { expires: 7 }); // Persistir en cookies
+    Cookies.set(CookieKey.SELECTED_DATE_FILTER, filter, { expires: 7 }); // Persistir en cookies
   };
 
   const updateFreeText = (text: string) => {
     setFreeText(text);
-    Cookies.set('freeText', text, { expires: 7 }); // Persistir en cookies
+    Cookies.set(CookieKey.FREE_TEXT, text, { expires: 7 }); // Persistir en cookies
   };
 
   const updateSalesTypeFilter = (salesType: SalesType[]) => {
     setSalesTypeFilter(salesType);
-    Cookies.set('salesTypeFilter', JSON.stringify(salesType), { expires: 7 }); // Persistir en cookies
+    Cookies.set(CookieKey.SALES_TYPE_FILTER, JSON.stringify(salesType), { expires: 7 }); // Persistir en cookies
   };
 
   useEffect(() => {
-    const initialFilter = Cookies.get('selectedFilter') || DateFilters.TODAY;
-    const initialFreeText = Cookies.get('freeText') || '';
-    const initialSalesTypeFilter = Cookies.get('salesTypeFilter') ? JSON.parse(Cookies.get('salesTypeFilter')!) : [];
+    const cookiesAccepted = Cookies.get(CookieKey.ACCEPTED_COOKIES);
+    if (!cookiesAccepted) {
+      return;
+    }
+    const initialFilter = Cookies.get(CookieKey.SELECTED_DATE_FILTER) || DateFilters.TODAY;
+    const initialFreeText = Cookies.get(CookieKey.FREE_TEXT) || '';
+    const initialSalesTypeFilter = Cookies.get(CookieKey.SALES_TYPE_FILTER) ? JSON.parse(Cookies.get(CookieKey.SALES_TYPE_FILTER)!) : [];
     setSelectedFilter(initialFilter as DateFilters);
     setFreeText(initialFreeText);
     setSalesTypeFilter(initialSalesTypeFilter);
