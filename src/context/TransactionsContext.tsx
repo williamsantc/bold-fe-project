@@ -14,7 +14,7 @@ type TransactionsContextType = {
     areTransactionsLoading?: boolean;
     freeText?: string;
     setFreeText: (text: string) => void;
-    error?: any;
+    error?: Error;
 }
 
 export const TransactionsContext = createContext<TransactionsContextType>({
@@ -55,7 +55,7 @@ export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
             areTransactionsLoading: isLoading,
             freeText,
             setFreeText,
-            error,
+            error: (error) as Error,
         }}>
     {children}
     </TransactionsContext.Provider>
