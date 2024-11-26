@@ -14,8 +14,6 @@ import FocusLock from "react-focus-lock";
 const TransactionModal: FC = () => {
   const { selectedTransaction, setSelectedTransaction } = useContext(TransactionsContext);
   const modalRef = useRef<HTMLDivElement | null>(null);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, startTransition] = useTransition();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -41,24 +39,15 @@ const TransactionModal: FC = () => {
   };
 
   useEffect(() => {
-    const closeModal = () => {
-      startTransition(() => {
-        setIsVisible(false);
-      });
-
-      setTimeout(() => {
-        setSelectedTransaction(null);
-      }, 300);
-    };
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        closeModal();
+        _closeModal();
       }
     };
 
     if (selectedTransaction) {
       setIsVisible(true);
+      modalRef.current?.focus();
 
       const scrollY = window.scrollY;
       document.body.style.position = "fixed";
@@ -91,15 +80,17 @@ const TransactionModal: FC = () => {
       })}
       onClick={handleBackdropClick}
       ref={modalRef}
+      tabIndex={0}
     >
       <div
         className={clsx(styles.modalContent, {
           [styles.slideIn]: isVisible,
           [styles.slideOut]: !isVisible,
         })}
+        tabIndex={0}
         role="dialog"
-        aria-labelledby="Detalle de la transacción"
-        aria-describedby="Información completa sobre la transacción seleccionada"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
         aria-modal="true"
       >
         <FocusLock disabled={!isVisible} returnFocus>
