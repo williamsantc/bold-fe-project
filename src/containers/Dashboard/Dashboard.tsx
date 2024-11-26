@@ -9,34 +9,34 @@ import { getDateLabelForDateFilter } from "@/lib/Filters";
 import TransactionModal from "@/components/Transactions/TransactionModal";
 
 const Dashboard = () => {
-    const { totalSales, selectedFilterLabel, selectedFilter, areTransactionsLoading } = useContext(TransactionsContext);
+  const { totalSales, selectedFilterLabel, selectedFilter, areTransactionsLoading } = useContext(TransactionsContext);
 
-    const filterLabel = selectedFilterLabel ?? '';
+  const filterLabel = selectedFilterLabel ?? '';
 
-    const totalSalesLabel = getDateLabelForDateFilter(selectedFilter);
+  const totalSalesLabel = getDateLabelForDateFilter(selectedFilter);
 
-    return (
-        <div className={styles.dashboard}>
-            <TransactionModal />
-            <div className={styles.topSection}>
-                <div className={styles.leftTopSection}>
-                    <TotalSales
-                        total={totalSales}
-                        headerLabel={filterLabel}
-                        descriptionLabel={totalSalesLabel}
-                        areTransactionsLoading={areTransactionsLoading}
-                    />
-                </div>
-                <div className={styles.rightTopSection}>
-                    <DateFilterButtons />
-                    <DropdownFilters />
-                </div>
-            </div>
-            <div className={styles.bottomSection}>
-                <TransactionList />
-            </div>
+  return (
+    <div className={styles.dashboard}>
+      <TransactionModal />
+      <div className={styles.topSection}>
+        <div className={styles.leftTopSection}>
+          <TotalSales
+            total={totalSales}
+            headerLabel={filterLabel}
+            descriptionLabel={totalSalesLabel}
+            areTransactionsLoading={areTransactionsLoading}
+          />
         </div>
-    );
+        <div className={styles.rightTopSection}>
+          <DateFilterButtons />
+          <DropdownFilters />
+        </div>
+      </div>
+      <div className={styles.bottomSection}>
+        <TransactionList />
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

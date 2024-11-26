@@ -19,33 +19,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <Head>
-      <link
+      <Head>
+        <link
           rel="apple-touch-icon"
           sizes="180x180"
           href="https://bold.co/apple-touch-icon.png"
           data-gatsby-head="true"
-      />
-      <link
+        />
+        <link
           rel="icon"
           type="image/png"
           sizes="32x32"
           href="https://bold.co/favicon-32x32.png"
           data-gatsby-head="true"
-      />
-      <link
+        />
+        <link
           rel="icon"
           type="image/png"
           sizes="16x16"
           href="https://bold.co/favicon-16x16.png"
           data-gatsby-head="true"
-      />
-    </Head>
-    <body className={monserratFont.variable}>
-      <QueryProvider>
-        <TransactionsProvider>{children}</TransactionsProvider>
-      </QueryProvider>
-    </body>
+        />
+      </Head>
+      <body className={monserratFont.variable}>
+        <QueryProvider>
+          <TransactionsProvider>{children}</TransactionsProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

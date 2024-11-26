@@ -1,3 +1,9 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "indent": ["error", 2],
+    "object-curly-spacing": ["error", "always"],
+    "semi": [2, "always"],
+    "react/prop-types": "off"
+  }
 }

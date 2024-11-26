@@ -10,31 +10,31 @@ type CheckboxProps = {
 } & Omit<HTMLProps<HTMLInputElement>, "onChange" | "checked" | "value" | "ref">;
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-    ({ onChange, checked, value, label, className, ...props }, ref) => {
-        const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                onChange({
-                    target: { value, checked: !checked } as unknown as ChangeEvent<HTMLInputElement>,
-                } as unknown as ChangeEvent<HTMLInputElement>);
-            }
-        };
+  ({ onChange, checked, value, label, className, ...props }, ref) => {
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        onChange({
+          target: { value, checked: !checked } as unknown as ChangeEvent<HTMLInputElement>,
+        } as unknown as ChangeEvent<HTMLInputElement>);
+      }
+    };
 
-        return (
-            <label className={clsx(styles.checkboxWrapper, className)}>
-                <input
-                    ref={ref}
-                    type="checkbox"
-                    value={value}
-                    checked={checked}
-                    onChange={onChange}
-                    onKeyDown={handleKeyPress}
-                    {...props}
-                />
-                {label}
-            </label>
-        );
-    }
+    return (
+      <label className={clsx(styles.checkboxWrapper, className)}>
+        <input
+          ref={ref}
+          type="checkbox"
+          value={value}
+          checked={checked}
+          onChange={onChange}
+          onKeyDown={handleKeyPress}
+          {...props}
+        />
+        {label}
+      </label>
+    );
+  }
 );
 
 Checkbox.displayName = "Checkbox";

@@ -10,31 +10,31 @@ interface DateFilterButtonsProps {
 }
 
 const DateFilterButtons: FC<DateFilterButtonsProps> = ({ onFilterChange }) => {
-    const { selectedFilter, setSelectedFilter } = useContext(TransactionsContext);
-    const filtersWLabels = useMemo(() => buildDateFiltersWithVisualLabels(), []);
+  const { selectedFilter, setSelectedFilter } = useContext(TransactionsContext);
+  const filtersWLabels = useMemo(() => buildDateFiltersWithVisualLabels(), []);
 
-    const handleFilterClick = (filter: DateFilters) => {
-        if(!filter) return;
+  const handleFilterClick = (filter: DateFilters) => {
+    if(!filter) return;
 
-        setSelectedFilter(filter);
-        if (onFilterChange) {
-            onFilterChange(filter);
-        }
-    };
+    setSelectedFilter(filter);
+    if (onFilterChange) {
+      onFilterChange(filter);
+    }
+  };
 
-    return (
-        <div className={styles.filterButtons}>
-            {filtersWLabels.map((filter) => (
-                <button
-                    key={filter.value}
-                    className={clsx(styles.button, { [styles.active]: selectedFilter === filter.value })}
-                    onClick={() => handleFilterClick(filter.value)}
-                >
-                    {filter.label}
-                </button>
-            ))}
-        </div>
-    );
+  return (
+    <div className={styles.filterButtons}>
+      {filtersWLabels.map((filter) => (
+        <button
+          key={filter.value}
+          className={clsx(styles.button, { [styles.active]: selectedFilter === filter.value })}
+          onClick={() => handleFilterClick(filter.value)}
+        >
+          {filter.label}
+        </button>
+      ))}
+    </div>
+  );
 };
 
 export default DateFilterButtons;
