@@ -16,13 +16,13 @@ const TransactionModal: FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, startTransition] = useTransition();
-  const [isVisible, setIsVisible] = useState(false); // Controls visibility for animations
+  const [isVisible, setIsVisible] = useState(false);
 
   const statusLabel = useMemo(() => getStatusLabel(selectedTransaction?.status), [selectedTransaction?.status]);
 
   const _closeModal = () => {
     startTransition(() => {
-      setIsVisible(false); // Trigger exit animation
+      setIsVisible(false);
     });
 
     setTimeout(() => {
@@ -132,7 +132,7 @@ const TransactionModal: FC = () => {
           </div>
           <div className={styles.row}>
             <span className={styles.title}>Tipo de pago:</span>
-            <span className={styles.description}>
+            <span className={clsx(styles.description, styles.salesType)}>
               <LogoSalesType salesType={selectedTransaction?.salesType || ""} />
                 &nbsp;
               <strong>{getSalesTypeLabel(selectedTransaction?.salesType || "")}</strong>

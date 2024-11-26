@@ -107,7 +107,14 @@
       }
 
       &.paymentMethod {
+        display: flex;
+        align-items: center;
         color: var(--blue-company);
+      }
+
+      &.salesType {
+        display: flex;
+        align-items: center;
       }
     }
   }
