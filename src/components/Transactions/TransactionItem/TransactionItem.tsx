@@ -18,10 +18,10 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
 
     return (
         <tr key={transaction.id}>
-            <td>
+            <td className={styles.firstTransactionCell}>
                 <div>
                     <LogoSalesType salesType={transaction.salesType} />
-                    {statusLabel}
+                    <span><b>{statusLabel}</b></span>
                 </div>
             </td>
             <td>{formatFullDate(transaction.createdAt)}</td>
@@ -33,11 +33,16 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
             </td>
             <td>{transaction.id}</td>
             <td>
-                {formatCurrency(transaction.amount)}
+                <b>{formatCurrency(transaction.amount)}</b>
                 {transaction.deduction && (
-                    <span className={styles.deduction}>
-                    Deduction Bold: {formatCurrency(transaction.deduction)}
+                    <div>
+                        <span>
+                    Deduction Bold:
                   </span>
+                        <span className={styles.deduction}>
+                    {formatCurrency(transaction.deduction)}
+                  </span>
+                    </div>
                 )}
             </td>
         </tr>
