@@ -2,7 +2,6 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { DateFilters } from "@/lib/constants/Filters";
 import {
-    calculateTotalSales,
     filterTransactions,
     filterTransactionsByDateFilter,
     getVisualLabelForDateFilter
@@ -10,6 +9,7 @@ import {
 import { Transaction } from "@/lib/type/Transaction";
 import { useGetDashboard } from "@/api/BoldApi";
 import {SalesType} from "@/lib/constants/SalesType";
+import { calculateTotalSales } from "@/lib/Transaction";
 
 type TransactionsContextType = {
     selectedFilter?: DateFilters | null;
@@ -23,6 +23,8 @@ type TransactionsContextType = {
     error?: Error;
     salesTypeFilter: SalesType[];
     setSalesTypeFilter: (salesType: SalesType[]) => void;
+    selectedTransaction?: Transaction | null;
+    setSelectedTransaction: (transaction: Transaction | null) => void;
 }
 
 export const TransactionsContext = createContext<TransactionsContextType>({
@@ -31,6 +33,7 @@ export const TransactionsContext = createContext<TransactionsContextType>({
     setFreeText: () => {},
     salesTypeFilter: [],
     setSalesTypeFilter: () => {},
+    setSelectedTransaction: () => {},
 });
 
 
@@ -41,6 +44,7 @@ export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
     const [totalSales, setTotalSales] = useState<number>(0);
     const [freeText, setFreeText] = useState<string>('');
     const [salesTypeFilter, setSalesTypeFilter] = useState<SalesType[]>([]);
+    const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
 
     const selectedFilterLabel = useMemo(() => getVisualLabelForDateFilter(selectedFilter), [selectedFilter]);
 
@@ -69,6 +73,8 @@ export const TransactionsProvider = ({ children }: { children: ReactNode }) => {
             error: (error) as Error,
             salesTypeFilter,
             setSalesTypeFilter,
+            selectedTransaction,
+            setSelectedTransaction,
         }}>
     {children}
     </TransactionsContext.Provider>
