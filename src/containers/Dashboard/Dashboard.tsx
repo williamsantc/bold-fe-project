@@ -6,6 +6,7 @@ import DateFilterButtons from "@/components/Transactions/DateFilterButtons";
 import { TransactionsContext } from "@/context/TransactionsContext";
 import DropdownFilters from "../../components/DropdownFilters";
 import { getDateLabelForDateFilter } from "@/lib/Filters";
+import TransactionModal from "@/components/Transactions/TransactionModal";
 
 const Dashboard = () => {
     const { totalSales, selectedFilterLabel, selectedFilter, areTransactionsLoading } = useContext(TransactionsContext);
@@ -16,6 +17,7 @@ const Dashboard = () => {
 
     return (
         <div className={styles.dashboard}>
+            <TransactionModal />
             <div className={styles.topSection}>
                 <div className={styles.leftTopSection}>
                     <TotalSales

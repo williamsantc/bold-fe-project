@@ -3,6 +3,7 @@ import styles from './TotalSales.module.scss';
 import { formatCurrency } from "@/lib/Currency";
 import Skeleton from 'react-loading-skeleton';
 import Card from "@/components/@core/Card";
+import Tooltip from "@/components/@core/Tooltip";
 
 interface TotalSalesProps {
     total?: number;
@@ -38,7 +39,9 @@ const TotalSales: FC<TotalSalesProps> = ({ total, headerLabel, areTransactionsLo
         <Card className={styles.totalSales}>
             <Card.Header className={styles.header}>
                 <span>Total ventas de {headerLabel}</span>
-                <span className={styles.infoIcon}>i</span>
+                <Tooltip text="Total de ventas realizadas en el periodo seleccionado">
+                    <span className={styles.infoIcon}>i</span>
+                </Tooltip>
             </Card.Header>
             <Card.Body className={styles.body}>
                 <div className={styles.total}>{formatCurrency(total)}</div>

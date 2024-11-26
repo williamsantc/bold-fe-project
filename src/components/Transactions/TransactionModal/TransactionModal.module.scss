@@ -1,0 +1,103 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.modalContent {
+  height: 100vh;
+  width: 400px;
+  max-width: 90%;
+  background: #fff;
+  border-radius: 16px 0 0 16px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+
+  &.slideIn {
+    transform: translateX(0);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.modalHeader {
+  margin-top: 2em;
+  text-align: center;
+
+  .status {
+    margin-top: 1em;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.2em;
+  }
+
+  .amount {
+    font-size: 2rem;
+    margin-bottom: 0.2em;
+    font-weight: bold;
+    color: var(--blue-company);
+  }
+
+  .date {
+    margin-bottom: 4em;
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+  }
+}
+
+.modalBody {
+  margin-bottom: 8px;
+  margin-top: 20px;
+
+  .row {
+    display: flex;
+    align-items: start;
+    margin-bottom: 8px;
+
+    .title {
+      flex: 0 0 190px;
+    }
+
+    .description {
+      flex: 1;
+
+      &.deduction {
+        color: var(--red-company);
+      }
+
+      &.paymentMethod {
+        color: var(--blue-company);
+      }
+    }
+  }
+
+  .divider {
+    margin: 20px 0;
+    border-bottom: 1px solid var(--dark-gray-company);
+  }
+}

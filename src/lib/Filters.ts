@@ -89,7 +89,7 @@ export const filterTransactionByDateFilter = (transaction: Transaction, filter: 
 export function filterTransactionByFreeText(transaction: Transaction, freeText: string) {
     if (!freeText) return true;
 
-    const query = freeText.toLowerCase();
+    const query = freeText.toLowerCase().trim();
 
     return Boolean(
         transaction.id.toLowerCase().includes(query) ||
@@ -100,8 +100,4 @@ export function filterTransactionByFreeText(transaction: Transaction, freeText: 
         transaction.franchise?.toLowerCase().includes(query) ||
         transaction.transactionReference?.toString().includes(query)
     );;
-}
-
-export const calculateTotalSales = (transactions: Transaction[]) => {
-    return transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
 }
