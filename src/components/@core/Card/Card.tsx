@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 
 type CardProps = {
     children: ReactNode;
+    ref?: LegacyRef<HTMLDivElement>;
 } & Omit<HTMLProps<HTMLDivElement>, "ref">;
 
 const CardBase: FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
