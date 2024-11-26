@@ -1,8 +1,6 @@
 .dashboard {
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--background-color-company);
   padding: 3em 3em 0 3em;
 
   @media screen and (max-width: 768px) {

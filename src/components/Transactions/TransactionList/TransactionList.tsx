@@ -42,6 +42,11 @@ const TransactionList: FC = () => {
             ))}
           </tbody>
         </table>
+        {!areTransactionsLoading && transactions.length === 0 && (
+          <div className={styles.noTransactions}>
+            <p>No hay ventas para mostrar</p>
+          </div>
+        )}
       </Card.Body>
     </Card>
   );
