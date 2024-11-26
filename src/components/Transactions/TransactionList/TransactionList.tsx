@@ -12,7 +12,7 @@ const TransactionList: FC = () => {
     return (
         <Card className={styles.tableContainer}>
             <Card.Header>
-                <h3 className={styles.title}>Tus ventas de {selectedFilterLabel}</h3>
+                <span className={styles.title}>Tus ventas de {selectedFilterLabel}</span>
             </Card.Header>
             <Card.Body className={styles.cardContent}>
                 <SearchBar freeText={freeText} setFreeText={setFreeText} />
@@ -37,10 +37,9 @@ const TransactionList: FC = () => {
                                 <td><Skeleton width="150px" /></td>
                             </tr>
                         ))
-                    ) : null}
-                    {!areTransactionsLoading ? transactions.map((transaction) => (
+                    ) : transactions.map((transaction) => (
                         <TransactionItem transaction={transaction} key={transaction.id} />
-                    )) : null}
+                    ))}
                     </tbody>
                 </table>
             </Card.Body>

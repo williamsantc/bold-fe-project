@@ -6,11 +6,12 @@ import Card from "@/components/@core/Card";
 
 interface TotalSalesProps {
     total?: number;
-    label?: string;
+    headerLabel: string;
+    descriptionLabel: string;
     areTransactionsLoading?: boolean;
 }
 
-const TotalSales: FC<TotalSalesProps> = ({ total, label, areTransactionsLoading }) => {
+const TotalSales: FC<TotalSalesProps> = ({ total, headerLabel, areTransactionsLoading, descriptionLabel }) => {
 
     if (areTransactionsLoading) {
 
@@ -36,12 +37,12 @@ const TotalSales: FC<TotalSalesProps> = ({ total, label, areTransactionsLoading 
     return (
         <Card className={styles.totalSales}>
             <Card.Header className={styles.header}>
-                <span>Total ventas de {label}</span>
+                <span>Total ventas de {headerLabel}</span>
                 <span className={styles.infoIcon}>i</span>
             </Card.Header>
             <Card.Body className={styles.body}>
                 <div className={styles.total}>{formatCurrency(total)}</div>
-                <div className={styles.date}>{label}</div>
+                <div className={styles.date}>{descriptionLabel}</div>
             </Card.Body>
         </Card>
     );

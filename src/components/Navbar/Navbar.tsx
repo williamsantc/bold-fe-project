@@ -10,8 +10,8 @@ const Navbar: FC = () => {
                     className={styles.logo}
                     src="/bold-logo.svg"
                     alt="Bold logo"
-                    width={180}
-                    height={38}
+                    width={170}
+                    height={28}
                     priority
                 />
             </div>

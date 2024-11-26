@@ -4,13 +4,15 @@ import styles from './Dashboard.module.scss';
 import TransactionList from "@/components/Transactions/TransactionList";
 import DateFilterButtons from "@/components/Transactions/DateFilterButtons";
 import { TransactionsContext } from "@/context/TransactionsContext";
-import { DateFilters } from "@/lib/constants/Filters";
 import DropdownFilters from "../../components/DropdownFilters";
+import { getDateLabelForDateFilter } from "@/lib/Filters";
 
 const Dashboard = () => {
     const { totalSales, selectedFilterLabel, selectedFilter, areTransactionsLoading } = useContext(TransactionsContext);
 
-    const totalSalesLabel = selectedFilter === DateFilters.CURRENT_MONTH ? `${selectedFilterLabel}, 2024` : selectedFilterLabel;
+    const filterLabel = selectedFilterLabel ?? '';
+
+    const totalSalesLabel = getDateLabelForDateFilter(selectedFilter);
 
     return (
         <div className={styles.dashboard}>
@@ -18,7 +20,8 @@ const Dashboard = () => {
                 <div className={styles.leftTopSection}>
                     <TotalSales
                         total={totalSales}
-                        label={totalSalesLabel}
+                        headerLabel={filterLabel}
+                        descriptionLabel={totalSalesLabel}
                         areTransactionsLoading={areTransactionsLoading}
                     />
                 </div>

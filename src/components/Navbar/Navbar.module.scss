@@ -2,9 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1.8rem 2rem;
   background: var(--gradient-company);
   color: var(--light-gray-company);
+
+  @media screen and (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
 }
 
 .logoContainer {
@@ -15,6 +19,10 @@
 .logo {
   height: auto;
   width: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 50%;
+  }
 }
 
 .links {
@@ -25,7 +33,6 @@
 .link {
   color: var(--light-gray-company);
   text-decoration: none;
-  font-weight: 600;
   transition: color 0.3s;
 
   &:hover {
