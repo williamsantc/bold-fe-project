@@ -14,6 +14,7 @@ import FocusLock from "react-focus-lock";
 const TransactionModal: FC = () => {
   const { selectedTransaction, setSelectedTransaction } = useContext(TransactionsContext);
   const modalRef = useRef<HTMLDivElement | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, startTransition] = useTransition();
   const [isVisible, setIsVisible] = useState(false);
 
