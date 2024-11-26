@@ -17,6 +17,11 @@
     opacity: 1;
     visibility: visible;
   }
+
+  &.exiting {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .modalContent {
@@ -30,8 +35,18 @@
   transform: translateX(100%);
   transition: transform 0.3s ease;
 
+  @media screen and (max-width: 768px) {
+    max-width: unset;
+    width: 100dvw;
+    border-radius: 0;
+  }
+
   &.slideIn {
     transform: translateX(0);
+  }
+
+  &.slideOut {
+    transform: translateX(100%);
   }
 }
 
@@ -43,6 +58,7 @@
   border: none;
   font-size: 2rem;
   cursor: pointer;
+  color: var(--dark-gray-company);
 }
 
 .modalHeader {
