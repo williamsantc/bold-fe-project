@@ -1,7 +1,25 @@
 import { DateFilters } from "@/lib/constants/Filters";
-import { getMonthFromTimestamp } from "@/lib/Time";
+import { getDayFromTimestamp, getMonthFromTimestamp, getStartOfWeek } from "@/lib/Time";
 import { Transaction } from "@/lib/type/Transaction";
 import { SalesType } from "@/lib/constants/SalesType";
+
+export const getDateLabelForDateFilter = (filter?: DateFilters | null) => {
+    const now = Date.now();
+    const today = getDayFromTimestamp(now);
+
+    switch (filter) {
+        case DateFilters.TODAY:
+            return today;
+        case DateFilters.THIS_WEEK:
+            const startOfWeek = getStartOfWeek(now);
+            const startOfWeekFormatted = getDayFromTimestamp(startOfWeek.getTime());
+            return `${startOfWeekFormatted} - ${today}`;
+        case DateFilters.CURRENT_MONTH:
+            return getMonthFromTimestamp(now, true);
+        default:
+            return "";
+    }
+}
 
 export const getVisualLabelForDateFilter = (filter?: DateFilters | null) => {
     switch (filter) {
@@ -53,15 +71,16 @@ export const filterTransactionBySalesType = (transaction: Transaction, salesType
 }
 
 export const filterTransactionByDateFilter = (transaction: Transaction, filter: DateFilters) => {
-    const now = new Date();
+    const now = Date.now();
+    const dateCreatedAt = new Date(transaction.createdAt);
     switch (filter) {
         case DateFilters.TODAY:
-            return new Date(transaction.createdAt).getDate() === now.getDate();
+            return dateCreatedAt.getDate() === new Date(now).getDate();
         case DateFilters.THIS_WEEK:
-            const startOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
-            return new Date(transaction.createdAt) >= startOfWeek;
+            const startOfWeek = getStartOfWeek(now);
+            return dateCreatedAt >= startOfWeek;
         case DateFilters.CURRENT_MONTH:
-            return new Date(transaction.createdAt).getMonth() === now.getMonth();
+            return dateCreatedAt.getMonth() === new Date(now).getMonth();
         default:
             return true;
     }

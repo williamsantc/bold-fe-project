@@ -3,23 +3,28 @@
   display: flex;
   flex-direction: column;
   background-color: var(--background-color-company);
+  padding: 3em 3em 0 3em;
+
+  @media screen and (max-width: 768px) {
+    padding: 1em;
+  }
 }
 
 .topSection {
   display: flex;
   align-items: flex-start;
-  margin: 2em 1em 1.5em 1em;
+  margin-bottom: 1.5em;
   flex-wrap: wrap;
   justify-content: space-between;
 
   .leftTopSection {
-    padding: 1em;
+    padding: 1em 1em 1em 0;
     flex: 0 0 40%;
     max-width: 40%;
   }
 
   .rightTopSection {
-    padding: 1em;
+    padding: 1em 0 1em 1em;
     flex: 0 0 60%;
     max-width: 60%;
   }
@@ -27,6 +32,7 @@
   @media screen and (max-width: 768px) {
     .leftTopSection,
     .rightTopSection {
+      padding: 1em 0;
       flex: 0 0 100%;
       max-width: 100%;
     }
@@ -39,5 +45,5 @@
 }
 
 .bottomSection {
-  padding: 0 2em 2em 2em;
+  padding-bottom: 3em;
 }

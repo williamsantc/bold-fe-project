@@ -7,9 +7,9 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: var(--light-gray-company);
+  background: white;
   padding: 0 1rem;
-  border-bottom: 1px solid var(--dark-gray-company);
+  border-bottom: 1px solid var(--light-gray-company);
 }
 
 .label {
@@ -25,7 +25,7 @@
   border: none;
   outline: none;
   font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-monserrat), sans-serif;
   color: var(--dark-gray-company);
   background: transparent;
 
